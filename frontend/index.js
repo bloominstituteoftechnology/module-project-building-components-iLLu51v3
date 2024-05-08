@@ -13,7 +13,7 @@ function moduleProject3() {
     links.forEach(link => {
       const anchor = document.createElement('a');
       anchor.href = link.url;
-      anchor.titel = link.title;
+      anchor.title = link.title;
       anchor.textContent = link.textContent;
       nav.appendChild(anchor);
     });
@@ -121,9 +121,62 @@ function moduleProject3() {
   // 👉 TASK 3 - Write a `buildFooter` component that returns a footer
 
   function buildFooter(footerData) {
-    //  ✨ do your magic here
+    const footer = document.createElement('footer')
+    footer.classList.add('footer')
+
+    let companyInfoDiv = document.createElement('div')
+    companyInfoDiv.classList.add('company-info')
+
+    const footerName = document.createElement('p')
+    footerName.classList.add('company-name')
+    footerName.textContent = footerData.companyName
+
+    const footerAddress = document.createElement('p')
+    footerAddress.classList.add('address')
+    footerAddress.textContent = footerData.address
+
+    const footerEmail = document.createElement('p')
+    footerEmail.classList.add('contact-email')
+    footerEmail.innerHTML = `Email: <a href = 'mailto: ${footerData.contactEmail}'>${footerData.contactEmail}</a>`;
     
-    return document.createElement('footer')
+    let footerInfo = [footerName, footerAddress, footerEmail]
+    footerInfo.forEach(p => {
+      companyInfoDiv.appendChild(p)
+    })
+
+    const footerMediaDiv = document.createElement('div')
+    footerMediaDiv.classList.add('social-media')
+    /** option 1:
+     * footerMedia.innerHTML = `<a href="https://twitter.com/example">Twitter</a> 
+     * <a href="https://www.facebook.com/example">Facebook</a>
+     * <a href="https://www.instagram.com/example">Instagram</a>`
+     */
+
+    /** Option 2:
+     * for (let platform in footerData.socialMedia){ 
+     * let socialMediaLink = document.createElement('a')
+     * socialMediaLink.href = footerData.socialMedia[platform]
+     * socialMediaLink.textContent = platform.charAt(0).toUpperCase()+platform.slice(1)
+     * } */
+
+    // Option 3:
+    const mediaNavDiv = document.createElement('div') 
+    Object.entries(footerData.socialMedia).forEach(([key,link]) => {
+    const anchorLink = document.createElement('a')
+      anchorLink.href = link
+      anchorLink.innerHTML = key.charAt(0).toUpperCase() + key.slice(1)
+      mediaNavDiv.appendChild(anchorLink)
+    })
+    footerMediaDiv.appendChild(mediaNavDiv)
+
+    const copyRightDiv = document.createElement('div')
+    copyRightDiv.textContent = `© ${footerData.companyName.toUpperCase()} ${new Date().getFullYear()}`
+    
+    footer.appendChild(companyInfoDiv)
+    footer.appendChild(footerMediaDiv)
+    footer.appendChild(copyRightDiv)
+
+    return footer;
   }
 
   // ❗ DOM creation using your `buildFooter` component (do not change):
@@ -136,7 +189,7 @@ function moduleProject3() {
       facebook: 'https://www.facebook.com/example',
       instagram: 'https://www.instagram.com/example',
     },
-  }))
+  }));
 
   // 👉 TASK 4 - Clicking on the section should deactivate the active card
 

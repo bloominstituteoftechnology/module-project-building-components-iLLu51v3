@@ -12,7 +12,7 @@ function moduleProject3() {
     const nav = document.createElement('nav');
     links.forEach(link => {
       const anchor = document.createElement('a');
-      anchor.href = link.url;
+      anchor.href = link.href;
       anchor.title = link.title;
       anchor.textContent = link.textContent;
       nav.appendChild(anchor);
@@ -73,11 +73,20 @@ function moduleProject3() {
  * -- on click adds 'active' to selected card, and removes 'active' from all other cards.
  */
 
-    card.addEventListener('click', evt => {
+    card.addEventListener('toggle', (evt) => {
       document.querySelectorAll('.learner-card').forEach(card => {
         card.classList.remove('active') // refers to card: as each of the divs
       })
       card.classList.add('active') // refers to card: as from line 51
+    })
+    document.addEventListener('click',(evt) => {
+      if (!card.contains(evt.target)){
+        // if (card.classList.contains('active')) {
+        //   card.classList.remove('active')
+        // }
+        card.classList.remove('active')
+      }
+      
     })
     return card
   }
@@ -192,8 +201,17 @@ function moduleProject3() {
   }));
 
   // 👉 TASK 4 - Clicking on the section should deactivate the active card
-
-  //  ✨ do your magic here
+//-----> Moved up to card funtionality/eventListener
+  //  ✨ do your magic here ---
+  // document.addEventListener('click',(evt) => {
+  //   if (!card.contains(evt.target)){
+  //     // if (card.classList.contains('active')) {
+  //     //   card.classList.remove('active')
+  //     // }
+  //     card.classList.remove('active')
+  //   }
+    
+  // })
 }
 
 // ❗ DO NOT CHANGE THIS CODE
